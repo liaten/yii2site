@@ -4,6 +4,7 @@
 /** @var string $content */
 
 use app\assets\AppAsset;
+use app\models\UserType;
 use app\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
@@ -40,18 +41,20 @@ $authLabel = 'Авторизация';
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+    $isUserLogged = !(Yii::$app->session['user'] === null);
+    if($isUserLogged){
+        $userType = (new UserType())->getName(Yii::$app->session['user']['userType'])->__get('name');
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => $newsLabel, 'url' => ['/site']],
-            ['label' => $authLabel, 'url' => ['/login']],
-            Yii::$app->session['user'] === null
-                ? ['label' => 'Вы не авторизованы']
+            !$isUserLogged
+                ? ['label' => 'Авторизоваться', 'url' => ['/login']]
                 : '<li class="nav-item">'
                 . Html::beginForm(['/login/logout'])
                 . Html::submitButton(
                     'Вы авторизованы как: ' . Yii::$app->session['user']['login'] . ' с правами '.
-                    Yii::$app->session['user']['userType'],
+                    $userType . '. Нажмите, чтобы выйти',
                     ['class' => 'nav-link btn btn-link logout']
                 )
                 . Html::endForm()
@@ -63,7 +66,7 @@ $authLabel = 'Авторизация';
 </header>
 
 <main id="main" class="flex-shrink-0" role="main">
-    <div class="container">
+    <div style="padding: 70px 10px 10px">
         <?php if (!empty($this->params['breadcrumbs'])): ?>
             <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
         <?php endif ?>

@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aaa765c251a1c02aaa78e25be3978cd",
+    "content-hash": "8908d4001e36d56b06b4b5bac4db4fff",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
             "version": "v5.2.3",
             "source": {
                 "type": "git",
-                "url": "git@github.com:twbs/bootstrap.git",
+                "url": "https://github.com/twbs/bootstrap.git",
                 "reference": "cb021439c683d9805e2864c58095b92d405e9b11"
             },
             "dist": {
@@ -26,7 +26,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -47,7 +47,7 @@
             "version": "3.6.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "da0f228131a578aea168b799fe4d7fe01764c98b"
             },
             "dist": {
@@ -2697,49 +2697,52 @@
             "time": "2022-10-26T14:07:24+00:00"
         },
         {
-            "name": "justinvoelker/yii2-separatedpager",
-            "version": "1.0.2",
+            "name": "matejch/yii2-sidebar-collapsible",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/justinvoelker/yii2-separatedpager.git",
-                "reference": "671a0eb8fcd88d69eb17de74989b9db397dea49d"
+                "url": "https://github.com/Matej-ch/yii2-sidebar-collapsible.git",
+                "reference": "76b1e4f31b0db7403401a43ee81f40c318e76cb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinvoelker/yii2-separatedpager/zipball/671a0eb8fcd88d69eb17de74989b9db397dea49d",
-                "reference": "671a0eb8fcd88d69eb17de74989b9db397dea49d",
+                "url": "https://api.github.com/repos/Matej-ch/yii2-sidebar-collapsible/zipball/76b1e4f31b0db7403401a43ee81f40c318e76cb5",
+                "reference": "76b1e4f31b0db7403401a43ee81f40c318e76cb5",
                 "shasum": ""
             },
             "require": {
-                "yiisoft/yii2": "*"
+                "php": ">=7.2.0",
+                "yiisoft/yii2": "~2.0.42"
             },
-            "type": "yii2-extension",
+            "type": "yii2-widget",
             "autoload": {
                 "psr-4": {
-                    "justinvoelker\\separatedpager\\": ""
+                    "matejch\\yii2sidebar\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Justin Voelker",
-                    "email": "justin@justinvoelker.com"
+                    "name": "Matej Chalachan",
+                    "email": "matejCH.work@gmail.com"
                 }
             ],
-            "description": "A Yii2 LinkPager that displays the first and last pages inline with other pages.",
+            "description": "Add sidebar that can be collapsed to smaller version",
             "keywords": [
-                "linkpager",
-                "pagination",
+                "collapsible",
+                "extension",
+                "sidebar",
+                "widget",
                 "yii2"
             ],
             "support": {
-                "issues": "https://github.com/justinvoelker/yii2-separatedpager/issues",
-                "source": "https://github.com/justinvoelker/yii2-separatedpager/tree/master"
+                "issues": "https://github.com/Matej-ch/yii2-sidebar-collapsible/issues",
+                "source": "https://github.com/Matej-ch/yii2-sidebar-collapsible/tree/1.0.5"
             },
-            "time": "2015-05-30T05:27:52+00:00"
+            "time": "2022-06-11T16:22:46+00:00"
         },
         {
             "name": "myclabs/deep-copy",

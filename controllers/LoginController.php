@@ -36,4 +36,11 @@ class LoginController extends Controller
 
         return $this->render('index', compact('loginForm',));
     }
+
+    public function actionLogout(){
+        Yii::$app->user->logout();
+        $session = Yii::$app->session;
+        $session['user'] = null;
+        return $this->goHome();
+    }
 }

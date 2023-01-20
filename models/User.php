@@ -23,13 +23,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserFromDBByLoginPassword($login, $password) : ?ActiveRecord
     {
         return $this->findOne(['login' => $login, 'password' => $password]);
-//        return $this->find()->where(['login' => $login, 'password' =>$password])->one();
     }
 
     public static function getUserFromDBByLogin($login) : ?ActiveRecord
     {
         return self::findOne(['login' => $login]);
-//        return self::find()->where(['login' => $login])->one();
     }
 
     public static function getUserFromDBByAccessToken($accessToken) : ?ActiveRecord

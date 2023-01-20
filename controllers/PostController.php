@@ -26,12 +26,13 @@ class PostController extends Controller
         $creationDateTime = $new->__get('creation_datetime');
         $description = $new->__get('description');
         $fullNew = $new->__get('full_new');
-        $this->view-$title = $new['title'];
+        $title = $new->__get('title');
         return $this->render('index',compact(
             'id',
             'creationDateTime',
             'description',
             'fullNew',
+            'title'
         ));
     }
 }

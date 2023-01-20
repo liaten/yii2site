@@ -7,7 +7,7 @@
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4"><?php echo $this->$title; ?></h1>
+        <h1 class="display-4"><?php echo $title; ?></h1>
 
         <p class="lead">Дата создания новости: <?php echo $creationDateTime?></p>
     </div>
