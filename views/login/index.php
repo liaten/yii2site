@@ -7,9 +7,9 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
 ?>
-<div class="site-login">
+<div class="site-login container">
 
-    <?php if(Yii::$app->session->hasFlash('auth_ok')):?>
+    <?php if(Yii::$app->session->hasFlash('authOK')):?>
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4"><?php echo $this->title; ?></h1>
 
@@ -19,7 +19,7 @@ use yii\bootstrap5\Html;
     </div>
 </div>
     <?php else: ?>
-    <?php if(Yii::$app->session->hasFlash('auth_err')):?>
+    <?php if(Yii::$app->session->hasFlash('authERR')):?>
 
         <div class="jumbotron text-center bg-transparent">
             <h1 class="display-4"><?php echo $this->title; ?></h1>

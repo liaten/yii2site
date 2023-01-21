@@ -7,12 +7,29 @@ use yii\db\ActiveRecord;
 
 class News extends ActiveRecord
 {
-    public function getAllNewsActiveQuery(): ActiveQuery
+    private $id;
+    private $creationDateTime;
+    private $updateDateTime;
+    private $creatorID;
+    private $updaterID;
+    private $title;
+    private $description;
+    private $fullNew;
+    public static function getAllNewsActiveQuery(): ActiveQuery
     {
-        return $this->find()->select(['id','title','creation_datetime','description'])->orderBy('id');
+        return self::find()->select(['id','title','creationDatetime','description'])->orderBy('id');
     }
-    public function getByID($id) : ActiveRecord
+    public static function getByID($id) : ActiveRecord
     {
-        return $this->find()->where(['id' => $id])->one();
+        return self::findOne(['id' => $id]);
+    }
+
+    public static function deleteByID($id){
+        $new = self::getByID($id);
+        $new->delete();
+    }
+
+    public static function createNew($creatorID,$updaterID,$title,$description,$fullNew){
+        //
     }
 }
