@@ -32,7 +32,7 @@ $user = $session['user'];
             for($i=0;$i<count($allNews);$i++){
                 $id = $allNews[$i]['id'];
                 $header = $allNews[$i]['title'];
-                $creationDate = $allNews[$i]['creationDatetime'];
+                $creationDate = $allNews[$i]['creationDateTime'];
                 $description = $allNews[$i]['description'];
                 echo '<div class="row">';
                 echo '<h2>' . $header . '</h2>';

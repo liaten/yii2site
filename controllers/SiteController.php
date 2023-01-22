@@ -34,10 +34,11 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
+
         $title = 'Новости';
         $allNewsActiveQuery = News::getAllNewsActiveQuery();
         $pagination = new Pagination([
-            'defaultPageSize' => 5,
+            'defaultPageSize' => 10,
             'totalCount' => $allNewsActiveQuery->count(),
         ]);
         $allNews = $allNewsActiveQuery
@@ -46,11 +47,22 @@ class SiteController extends Controller
             ->all();
         $session = Yii::$app->session;
         $nowTimeInHours = intval(time() / 60 / 60);
-        if($nowTimeInHours > $session['weatherUpdateTimeInHours']){
-            $IPInfo = Curl::executeJSON('https://ipinfo.io');
-            $city = $IPInfo['city'];
-            $lang = strtolower($IPInfo['country']);
-            $session['weather'] = Curl::execute('https://wttr.in/'.$city.'?0T&lang='.$lang);
+        if($nowTimeInHours > $session['weatherUpdateTimeInHours'] || $session['weather'] == ''){
+            $connectionTries = 0;
+            do{
+                $info = Curl::getHTTPCode('https://wttr.in/');
+                $connectionTries+=1;
+            }
+            while ($info!=200 || $connectionTries>20);
+            if($connectionTries>19){
+                $session['weather'] = 'Сайт с погодой не отвечает';
+            }
+            else{
+                $IPInfo = Curl::executeJSON('https://ipinfo.io');
+                $city = $IPInfo['city'];
+                $lang = strtolower($IPInfo['country']);
+                $session['weather'] = Curl::execute('https://wttr.in/'.$city.'?0T&lang='.$lang);
+            }
             $session['weatherUpdateTimeInHours'] = $nowTimeInHours;
         }
         return $this->render('index',compact('allNews','pagination', 'title'));

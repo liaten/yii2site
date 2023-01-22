@@ -6,6 +6,7 @@ use yii\base\Model;
 
 class PostForm extends Model
 {
+    public $id;
     public $title;
     public $description;
     public $fullNew;

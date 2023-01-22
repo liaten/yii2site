@@ -1,6 +1,5 @@
 <?php
 /** @var PostForm $postForm */
-/** @var string $userTypeName */
 
 use app\models\PostForm;
 use execut\autosizeTextarea\TextareaWidget;
@@ -16,9 +15,6 @@ use yii\bootstrap5\Html;
 
         <div class="alert alert-success" role="alert">
             Пост создан успешно.
-            <?php
-            var_dump($postForm->description);
-            ?>
         </div>
     </div>
 </div>

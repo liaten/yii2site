@@ -6,7 +6,6 @@ use app\models\News;
 use app\models\Post;
 use app\models\PostForm;
 use Yii;
-use yii\BaseYii;
 use yii\web\Controller;
 
 class PostController extends Controller
@@ -22,7 +21,7 @@ class PostController extends Controller
             $new = News::getByID($id);
         }
         catch (\TypeError $typeError){
-            BaseYii::debug($typeError);
+            Yii::debug($typeError);
             return $this->goHome();
         }
         $creationDateTime = $new->__get('creationDatetime');
@@ -46,7 +45,36 @@ class PostController extends Controller
 
     public function actionEdit($id = null){
         $this->view->title = 'Изменение поста №' .$id;
-        return $this->render('edit');
+        $postForm = new PostForm();
+        if($postForm->load(Yii::$app->request->post())){
+
+            if ($postForm->validate()) {
+                $session = Yii::$app->session;
+                $postID = $id;
+                $title = $postForm->title;
+                $description = $postForm->description;
+                $fullNew = $postForm->fullNew;
+                $updaterID = $session['user']['id'];
+                News::updateNew($postID,$updaterID,$title,$description,$fullNew);
+                $session->setFlash('postOK');
+            }
+            else{
+                Yii::$app->session->setFlash('postERR');
+            }
+        }
+        else{
+            $new = News::getByID($id);
+            $title = $new->__get('title');
+            $description = $new->__get('description');
+            $fullNew = $new->__get('fullNew');
+            Yii::debug('title '.$title.
+                ';desc ' . $description.
+                ';fullnew ' . $fullNew
+            );
+            return $this->render('edit',compact('postForm','title','description','fullNew'));
+        }
+
+        return $this->render('edit',compact('postForm'));
     }
 
     public function actionCreate(){
@@ -54,10 +82,13 @@ class PostController extends Controller
         $postForm = new PostForm();
         if($postForm->load(Yii::$app->request->post())){
             if ($postForm->validate()){
-                Yii::$app->session->setFlash('postOK');
+                $session = Yii::$app->session;
                 $title = $postForm->title;
                 $description = $postForm->description;
                 $fullNew = $postForm->fullNew;
+                $creatorID = $session['user']['id'];
+                News::createNew($creatorID,$title,$description,$fullNew);
+                $session->setFlash('postOK');
             }
             else{
                 Yii::$app->session->setFlash('postERR');
