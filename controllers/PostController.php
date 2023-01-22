@@ -24,8 +24,8 @@ class PostController extends Controller
             Yii::debug($typeError);
             return $this->goHome();
         }
-        $creationDateTime = $new->__get('creationDatetime');
-        $updateDateTime = $new->__get('updateDatetime');
+        $creationDateTime = $new->__get('creationDateTime');
+        $updateDateTime = $new->__get('updateDateTime');
         $creatorID = $new->__get('creatorID');
         $updaterID = $new->__get('updaterID');
         $description = $new->__get('description');
