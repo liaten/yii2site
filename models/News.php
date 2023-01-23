@@ -25,12 +25,12 @@ class News extends ActiveRecord
         return self::findOne(['id' => $id]);
     }
 
-    public static function deleteByID($id){
+    public static function deleteByID(int $id){
         $new = self::getByID($id);
         $new->delete();
     }
 
-    public static function createNew($creatorID,$title,$description,$fullNew){
+    public static function createNew(int $creatorID,string $title,string $description,string $fullNew){
         $nowDateTime = date('Y-m-d H:i:s',time() + 60*60*3); // поправка на время в GMT+3
         Yii::$app->db->createCommand()->insert('news',[
                 'creationDateTime' => $nowDateTime,
@@ -44,18 +44,17 @@ class News extends ActiveRecord
         )->execute();
     }
 
-    public static function updateNew($postID,$updaterID,$title,$description,$fullNew){
+    public static function updateNew(int $newID,int $updaterID,string $title,string $description,string $fullNew){
         $nowDateTime = date('Y-m-d H:i:s',time() + 60*60*3); // поправка на время в GMT+3
-        $update_command = Yii::$app->db->createCommand()->update('news',[
+        Yii::$app->db->createCommand()->update('news',[
                 'updateDateTime' => $nowDateTime,
                 'updaterID' => $updaterID,
                 'title' => $title,
                 'description' => $description,
                 'fullNew' => $fullNew
             ],
-            'id = :postID',
-            [':postID'=>$postID]
-        );
-        $update_command->execute();
+            'id = :newID',
+            [':newID'=>$newID]
+        )->execute();
     }
 }

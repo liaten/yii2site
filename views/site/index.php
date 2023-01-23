@@ -1,7 +1,6 @@
 <?php
 /** @var array $allNews */
 /** @var yii\data\Pagination $pagination */
-/** @var string $title */
 
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
@@ -19,37 +18,39 @@ $user = $session['user'];
         </div>
         <div class="col">
             <div class="jumbotron text-center bg-transparent">
-                <h1 class="display-4"><?php echo $title; ?></h1>
+                <h1 class="display-4"><?php echo $this->title; ?></h1>
 
                 <p class="lead">Здесь вы можете просмотреть список новостей и перейти к каждой новости при нажатии на кнопку.</p>
                 <?php
                 if($user){
-                    echo '<a class="btn btn-outline-secondary" href="'.Url::base(true).'/?r=post/create">Создать новостную запись</a>';
+                    echo '<a class="btn btn-outline-secondary" href="'.Url::base(true).'/?r=new/create">Создать новостную запись</a>';
                 }
                 ?>
             </div>
             <?php
             for($i=0;$i<count($allNews);$i++){
-                $id = $allNews[$i]['id'];
-                $header = $allNews[$i]['title'];
+                Yii::debug($allNews[$i]);
+                $new = $allNews[$i];
+                $id = $new->id;
+                $header = $new->title;
                 $creationDate = $allNews[$i]['creationDateTime'];
                 $description = $allNews[$i]['description'];
                 echo '<div class="row">';
                 echo '<h2>' . $header . '</h2>';
                 echo '<p class="small">' . 'Дата создания поста: '.$creationDate . '</p>';
                 echo '<p>' . $description . '</p>';
-                echo '<p><a class="btn btn-outline-secondary" href="'.Url::base(true).'/?r=post&id='.$id.'">Перейти &raquo;</a>';
+                echo '<p><a class="btn btn-outline-secondary" href="'.Url::base(true).'/?r=new&id='.$id.'">Перейти &raquo;</a>';
 
                 if($user){
                     $userType = $user['userType'];
                     if($userType===1){ // 1 = editor
-                        echo '<a class="btn btn-outline-secondary" style="margin-right: 15px;margin-left: 15px;" href="'.Url::base(true).'/?r=post/edit&id='.$id.'">Изменить &raquo;</a>'.
+                        echo '<a class="btn btn-outline-secondary" style="margin-right: 15px;margin-left: 15px;" href="'.Url::base(true).'/?r=new/edit&id='.$id.'">Изменить &raquo;</a>'.
                         '<button class="btn btn-outline-secondary" onclick="AcceptDelete('.$id.')">Удалить &raquo;</button>'.
                         '<div class="toast" id="deleteToast'.$id.'" role="alert" aria-live="assertive" aria-atomic="true">'.
                         '<div class="toast-header">'.
                         '<strong>Подтверждение удаления записи №'.$id.'</strong>'.'</div>'.
                         '<div class="toast-body">'.
-                        '<a class="btn btn-outline-secondary" style="margin-right: 15px;" aria-hidden="true" href="'.Url::base(true).'/?r=post/delete&id='.$id.'">Подтвердить</a>'.
+                        '<a class="btn btn-outline-secondary" style="margin-right: 15px;" aria-hidden="true" href="'.Url::base(true).'/?r=new/delete&id='.$id.'">Подтвердить</a>'.
                         '<a class="btn btn-outline-secondary close" aria-hidden="true" data-bs-dismiss="toast" aria-label="Close">Отменить</a>'.
                         '</div>'.
                         '</div>';

@@ -34,8 +34,6 @@ class SiteController extends Controller
      */
     public function actionIndex(): string
     {
-
-        $title = 'Новости';
         $allNewsActiveQuery = News::getAllNewsActiveQuery();
         $pagination = new Pagination([
             'defaultPageSize' => 10,
@@ -45,6 +43,11 @@ class SiteController extends Controller
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
+        self::setSessionWeather();
+        return $this->render('index',compact('allNews','pagination'));
+    }
+
+    private static function setSessionWeather(){
         $session = Yii::$app->session;
         $nowTimeInHours = intval(time() / 60 / 60);
         if($nowTimeInHours > $session['weatherUpdateTimeInHours'] || $session['weather'] == ''){
@@ -65,6 +68,6 @@ class SiteController extends Controller
             }
             $session['weatherUpdateTimeInHours'] = $nowTimeInHours;
         }
-        return $this->render('index',compact('allNews','pagination', 'title'));
     }
+
 }

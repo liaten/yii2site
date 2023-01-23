@@ -7,6 +7,7 @@ use app\models\UserType;
 use yii\web\Controller;
 use app\models\LoginForm;
 use Yii;
+use yii\web\Response;
 
 class LoginController extends Controller
 {
@@ -37,7 +38,7 @@ class LoginController extends Controller
         return $this->render('index', compact('loginForm'));
     }
 
-    public function actionLogout(): \yii\web\Response
+    public function actionLogout(): Response
     {
         Yii::$app->user->logout();
         $session = Yii::$app->session;

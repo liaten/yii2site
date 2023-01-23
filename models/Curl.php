@@ -4,7 +4,7 @@ namespace app\models;
 
 class Curl
 {
-    public static function executeJSON($url):?array
+    public static function executeJSON(string $url) : ?array
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -16,7 +16,7 @@ class Curl
         return $result;
     }
 
-    public static function execute($url):?string
+    public static function execute(string $url) : ?string
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -27,7 +27,7 @@ class Curl
         return $result;
     }
 
-    public static function getHTTPCode($url)
+    public static function getHTTPCode(string $url) : int
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers

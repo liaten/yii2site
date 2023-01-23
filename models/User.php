@@ -8,34 +8,34 @@ use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface
 {
-    private $id;
-    private $login;
-    private $password;
-    private $userType;
-    private $accessToken;
-    private $authKey;
+    private ?int $id = null;
+    private ?string $login = null;
+    private ?string $password = null;
+    private ?int $userType = null;
+    private ?string $accessToken = null;
+    private ?string $authKey = null;
 
     function __construct($config = [])
     {
         parent::__construct($config);
     }
 
-    public function getUserFromDBByLoginPassword($login, $password) : ?ActiveRecord
+    public function getUserFromDBByLoginPassword(string $login, string $password) : ?ActiveRecord
     {
         return $this->findOne(['login' => $login, 'password' => $password]);
     }
 
-    public static function getUserFromDBByLogin($login) : ?ActiveRecord
+    public static function getUserFromDBByLogin(string $login) : ?ActiveRecord
     {
         return self::findOne(['login' => $login]);
     }
 
-    public static function getUserFromDBByAccessToken($accessToken) : ?ActiveRecord
+    public static function getUserFromDBByAccessToken(string $accessToken) : ?ActiveRecord
     {
         return self::findOne(['accessToken' => $accessToken]);
     }
 
-    public function findByLoginPassword($login, $password): ?User
+    public function findByLoginPassword(string $login, string $password): ?User
     {
         $user = $this->findOne(['login'=>$login, 'password' => $password]);
         if($user){
@@ -52,7 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $user;
     }
 
-    public function isUser($login,$password) : bool
+    public function isUser(string $login,string $password) : bool
     {
         if($this->getUserFromDBByLoginPassword($login,$password)){
             return true;
@@ -60,7 +60,7 @@ class User extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-    public function getUserTypeID($login) : ActiveRecord
+    public function getUserTypeID(string $login) : ActiveRecord
     {
         return $this->find()->select(['userType'])->where(['login' => $login])->one();
     }
@@ -76,12 +76,12 @@ class User extends ActiveRecord implements IdentityInterface
         return self::findOne($id);
     }
 
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null): User|IdentityInterface|null
     {
         return self::findOne(['accessToken'=>$token]);
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -91,12 +91,16 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->authKey;
     }
 
+    /**
+     * @param string $authKey
+     * @return bool
+     */
     public function validateAuthKey($authKey): bool
     {
         return $this->authKey === $authKey;
     }
 
-    public function validatePassword($password): bool
+    public function validatePassword(string $password): bool
     {
         return $this->password === $password;
     }

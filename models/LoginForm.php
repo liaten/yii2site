@@ -12,11 +12,11 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $login;
-    public $password;
-    public $rememberMe = true;
+    public ?string $login = null;
+    public ?string $password = null;
+    public bool $rememberMe = true;
 
-    private $_user = false;
+    private User|bool|null $_user = false;
 
     public function attributeLabels(): array
     {
@@ -39,7 +39,7 @@ class LoginForm extends Model
 
     /**
      * Выполняет вход в систему
-     * @return bool whether the user is logged in successfully
+     * @return bool, когда вход удачный
      */
     public function login() : bool
     {
@@ -55,7 +55,7 @@ class LoginForm extends Model
     }
 
     /**
-     * Находит пользователя по параметру [[login]]
+     * Находит пользователя по параметрам login,password
      *
      * @return User|null
      */
@@ -75,7 +75,7 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword(string $attribute, array $params)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
