@@ -1,7 +1,8 @@
 <?php
-/** @var array $allNews */
+/** @var News ...$allNews */
 /** @var yii\data\Pagination $pagination */
 
+use app\models\News;
 use yii\bootstrap5\LinkPager;
 use yii\helpers\Url;
 
@@ -28,13 +29,11 @@ $user = $session['user'];
                 ?>
             </div>
             <?php
-            for($i=0;$i<count($allNews);$i++){
-                Yii::debug($allNews[$i]);
-                $new = $allNews[$i];
+            foreach ($allNews as $new) {
                 $id = $new->id;
                 $header = $new->title;
-                $creationDate = $allNews[$i]['creationDateTime'];
-                $description = $allNews[$i]['description'];
+                $creationDate = $new->creationDateTime;
+                $description = $new->description;
                 echo '<div class="row">';
                 echo '<h2>' . $header . '</h2>';
                 echo '<p class="small">' . 'Дата создания поста: '.$creationDate . '</p>';
@@ -45,15 +44,15 @@ $user = $session['user'];
                     $userType = $user['userType'];
                     if($userType===1){ // 1 = editor
                         echo '<a class="btn btn-outline-secondary" style="margin-right: 15px;margin-left: 15px;" href="'.Url::base(true).'/?r=new/edit&id='.$id.'">Изменить &raquo;</a>'.
-                        '<button class="btn btn-outline-secondary" onclick="AcceptDelete('.$id.')">Удалить &raquo;</button>'.
-                        '<div class="toast" id="deleteToast'.$id.'" role="alert" aria-live="assertive" aria-atomic="true">'.
-                        '<div class="toast-header">'.
-                        '<strong>Подтверждение удаления записи №'.$id.'</strong>'.'</div>'.
-                        '<div class="toast-body">'.
-                        '<a class="btn btn-outline-secondary" style="margin-right: 15px;" aria-hidden="true" href="'.Url::base(true).'/?r=new/delete&id='.$id.'">Подтвердить</a>'.
-                        '<a class="btn btn-outline-secondary close" aria-hidden="true" data-bs-dismiss="toast" aria-label="Close">Отменить</a>'.
-                        '</div>'.
-                        '</div>';
+                            '<button class="btn btn-outline-secondary" onclick="AcceptDelete('.$id.')">Удалить &raquo;</button>'.
+                            '<div class="toast" id="deleteToast'.$id.'" role="alert" aria-live="assertive" aria-atomic="true">'.
+                            '<div class="toast-header">'.
+                            '<strong>Подтверждение удаления записи №'.$id.'</strong>'.'</div>'.
+                            '<div class="toast-body">'.
+                            '<a class="btn btn-outline-secondary" style="margin-right: 15px;" aria-hidden="true" href="'.Url::base(true).'/?r=new/delete&id='.$id.'">Подтвердить</a>'.
+                            '<a class="btn btn-outline-secondary close" aria-hidden="true" data-bs-dismiss="toast" aria-label="Close">Отменить</a>'.
+                            '</div>'.
+                            '</div>';
                     }
                 }
                 echo '</p>';

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Curl;
 use app\models\News;
+use app;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;

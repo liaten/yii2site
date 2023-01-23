@@ -84,8 +84,8 @@ $noFlashMessages = !($hasFlashNewOK || $hasFlashNewErr);
 
 <?php if ($noFlashMessages):?>
 <script>
-    document.getElementById('postform-title').value = '<?php echo $title;?>' ;
-    document.getElementById('postform-description').value = '<?php echo $description;?>' ;
-    document.getElementById('postform-fullnew').value = '<?php echo $fullNew;?>' ;
+    document.getElementById('newsform-title').value = '<?php echo $title;?>' ;
+    document.getElementById('newsform-description').value = '<?php echo $description;?>' ;
+    document.getElementById('newsform-fullnew').value = '<?php echo $fullNew;?>' ;
 </script>
 <?php endif; ?>
